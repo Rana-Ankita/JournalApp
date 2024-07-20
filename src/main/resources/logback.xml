@@ -1,3 +1,4 @@
+<!--
 <configuration>
 
     <appender name="myConsoleAppender" class="ch.qos.logback.core.ConsoleAppender">
@@ -8,8 +9,8 @@
         </encoder>
     </appender>
 
-    <!--<appender name="myFileAppender" class="ch.qos.logback.core.FileAppender">
-        if we want to create log file in particular time period then we will use RollineFileAppender-->
+    &lt;!&ndash;<appender name="myFileAppender" class="ch.qos.logback.core.FileAppender">
+        if we want to create log file in particular time period then we will use RollineFileAppender&ndash;&gt;
     <appender name="myFileAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <file>
             journalApp.log
@@ -30,4 +31,4 @@
         <appender-ref ref="/myFileAppender"/>
     </root>
 
-</configuration>
+</configuration>-->

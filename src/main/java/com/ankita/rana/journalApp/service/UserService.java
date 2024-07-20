@@ -4,6 +4,7 @@ import com.ankita.rana.journalApp.entity.JournalEntry;
 import com.ankita.rana.journalApp.entity.User;
 import com.ankita.rana.journalApp.repository.JournalEntryRepository;
 import com.ankita.rana.journalApp.repository.UserRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.bson.types.ObjectId;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

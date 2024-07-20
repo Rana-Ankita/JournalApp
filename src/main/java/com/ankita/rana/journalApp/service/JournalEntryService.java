@@ -3,6 +3,7 @@ package com.ankita.rana.journalApp.service;
 import com.ankita.rana.journalApp.entity.JournalEntry;
 import com.ankita.rana.journalApp.entity.User;
 import com.ankita.rana.journalApp.repository.JournalEntryRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -12,7 +13,11 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
+
+
+
 @Component
+@Slf4j
 public class JournalEntryService {
     @Autowired
     private JournalEntryRepository journalEntryRepository;
@@ -28,6 +33,7 @@ public class JournalEntryService {
            user.getJournalEntryList().add(saved);
            userService.saveUser(user);
        } catch (Exception e) {
+           log.error("Error is : ", e);
            throw new RuntimeException("An error occured while saving the entry" ,e);
        }
     }
