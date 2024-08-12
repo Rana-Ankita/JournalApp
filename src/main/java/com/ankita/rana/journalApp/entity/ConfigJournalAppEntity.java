@@ -1,6 +1,9 @@
 package com.ankita.rana.journalApp.entity;
 
-import lombok.*;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.NonNull;
 import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
@@ -11,23 +14,11 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-@Document(collection = "user")
+@Document(collection = "config_journal_app")
 @Data
-@Builder
 @NoArgsConstructor
-@AllArgsConstructor
-public class User {
+public class ConfigJournalAppEntity {
+    private String key;
+    private String value;
 
-    @Id
-    private ObjectId id;
-    @Indexed(unique = true)
-    @NonNull
-    private String userName;
-    private String email;
-    private boolean sentimentAnalysis;
-    @NonNull
-    private String password;
-    @DBRef
-    List<JournalEntry> journalEntryList = new ArrayList<>();
-    List<String> roles;
 }
