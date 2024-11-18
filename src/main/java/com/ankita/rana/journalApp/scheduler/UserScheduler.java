@@ -5,10 +5,12 @@ import com.ankita.rana.journalApp.cache.AppCache;
 import com.ankita.rana.journalApp.entity.JournalEntry;
 import com.ankita.rana.journalApp.entity.User;
 import com.ankita.rana.journalApp.enums.Sentiment;
+import com.ankita.rana.journalApp.model.SentimentData;
 import com.ankita.rana.journalApp.repository.UserRepositoryImpl;
 import com.ankita.rana.journalApp.service.EmailService;
 import com.ankita.rana.journalApp.service.SentimentAnalysisService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
@@ -33,6 +35,9 @@ public class UserScheduler {
 
     @Autowired
     AppCache appCache;
+
+    @Autowired
+    KafkaTemplate<String, SentimentData> kafkaTemplate;
 
     //we have six field in crone expression - sec--min--hour--dayOfTheMonth--Month--dayOfTheWeek
    // @Scheduled(cron = "0 0 9 * * SUN")
@@ -61,7 +66,9 @@ public class UserScheduler {
                    }
                }
                if(mostFrequentSentiment != null){
-                   emailService.sendEmail(user.getEmail(), "Sentiment for the last 7 days", mostFrequentSentiment.toString());
+                   //emailService.sendEmail(user.getEmail(), "Sentiment for the last 7 days", mostFrequentSentiment.toString());
+                   SentimentData sentimentData = SentimentData.builder().email(user.getEmail()).sentiment("Sentiment for last 7 days " + mostFrequentSentiment).build();
+                   kafkaTemplate.send("weekly-sentiment", sentimentData.getEmail(), sentimentData);
                }
            }
 
